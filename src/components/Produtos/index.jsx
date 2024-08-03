@@ -28,6 +28,26 @@ const Produtos = () => {
       })
     );
   }
+
+  function removerProduto(id) {
+    const temProduto = carrinho.some((itemDoCarrinho) => {
+      itemDoCarrinho.id === id;
+    });
+
+    if (temProduto.quantidade === 1) {
+      return setCarrinho((carrinhoAnterior) =>
+        carrinhoAnterior.filter((itemDoCarrinho) => itemDoCarrinho.id !== id)
+      );
+    }
+
+    setCarrinho((carrinhoAnterior) =>
+      carrinhoAnterior.map((itemDoCarrinho) => {
+        if (itemDoCarrinho.id === id) itemDoCarrinho.quantidade -= 1;
+        return itemDoCarrinho;
+      })
+    );
+  }
+
   return (
     <section role='produtos' aria-label='Produtos que estão bombando!'>
       <Titulo>Produtos que estão bombando!</Titulo>
