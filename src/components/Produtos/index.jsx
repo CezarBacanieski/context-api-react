@@ -5,7 +5,8 @@ import Titulo from '@/components/Titulo';
 import { useCarrinhoContext } from '@/hooks/useCarrinhoContext';
 
 const Produtos = () => {
-  const { adicionarProduto, removerProduto } = useCarrinhoContext();
+  const { adicionarProduto, removerProduto, removerProdutoCarrinho } =
+    useCarrinhoContext();
   return (
     <section role='produtos' aria-label='Produtos que estão bombando!'>
       <Titulo>Produtos que estão bombando!</Titulo>
@@ -16,6 +17,7 @@ const Produtos = () => {
             {...produto}
             adicionarProduto={adicionarProduto}
             removerProduto={removerProduto}
+            removerProdutoCarrinho={removerProdutoCarrinho}
           />
         ))}
       </div>
