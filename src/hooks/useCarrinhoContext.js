@@ -1,11 +1,11 @@
 import { useContext } from 'react';
-import { CarrinhoContext } from '@/context/CarrinhoContext.jsx';
+import { CarrinhoContext } from '@/context/CarrinhoContext';
 
 export const useCarrinhoContext = () => {
   const { carrinho, setCarrinho } = useContext(CarrinhoContext);
 
   function mudarQuantidade(id, quantidade) {
-    carrinho.map((itemDoCarrinho) => {
+    return carrinho.map((itemDoCarrinho) => {
       if (itemDoCarrinho.id === id) itemDoCarrinho.quantidade += quantidade;
       return itemDoCarrinho;
     });
@@ -31,7 +31,7 @@ export const useCarrinhoContext = () => {
 
   function removerProduto(id) {
     const temProduto = carrinho.find((itemDoCarrinho) => {
-      itemDoCarrinho.id === id;
+      return itemDoCarrinho.id === id;
     });
 
     if (temProduto.quantidade === 1) {
