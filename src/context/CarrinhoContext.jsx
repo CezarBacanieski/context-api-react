@@ -1,9 +1,12 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useReducer, useState } from 'react';
 
 export const CarrinhoContext = createContext();
 CarrinhoContext.displayName = 'Carrinho';
+const estadoInicial = [];
+
+
 export const CarrinhoProvider = ({ children }) => {
-  const [carrinho, setCarrinho] = useState([]);
+  const [carrinho, dispatch] = useReducer(carrinhoReducer, estadoInicial);
   const [quantidade, setQuantidade] = useState(0);
   const [valorTotal, setValorTotal] = useState(0);
 
@@ -11,11 +14,9 @@ export const CarrinhoProvider = ({ children }) => {
     <CarrinhoContext.Provider
       value={{
         carrinho,
-        setCarrinho,
+        dispatch,
         quantidade,
-        setQuantidade,
         valorTotal,
-        setValorTotal,
       }}
     >
       {children}
