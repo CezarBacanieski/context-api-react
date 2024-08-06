@@ -51,8 +51,16 @@ export const useCarrinhoContext = () => {
     setCarrinho([...carrinhoAtualizado]);
   }
 
+  function removerProdutoCarrinho(id) {
+    const produto = carrinho.filter(
+      (itemDoCarrinho) => itemDoCarrinho.id !== id
+    );
+
+    setQuantidade(produto);
+  }
+
   useEffect(() => {
-    const [totalTemp, quantidadeTemp] = carrinho.reduce(
+    const { totalTemp, quantidadeTemp } = carrinho.reduce(
       (accumulator, produto) => ({
         quantidadeTemp: accumulator.quantidadeTemp + produto.quantidade,
         totalTemp: accumulator.totalTemp + produto.preco * produto.quantidade,
@@ -62,34 +70,9 @@ export const useCarrinhoContext = () => {
         totalTemp: 0,
       }
     );
-
     setQuantidade(quantidadeTemp);
     setValorTotal(totalTemp);
   }, [carrinho]);
-
-  function removerProdutoCarrinho(id) {
-    const produtos = carrinho.map((itemDoCarrinho) => itemDoCarrinho.id !== id);
-
-    setQuantidade(produtos);
-  }
-
-  function quantidadeTotal(id) {
-    const produto = carrinho.some((itemDoCarrinho) => {
-      return itemDoCarrinho.id === novoProduto.id;
-    });
-
-    if (!produto) {
-      novoProduto.quantidade = 1;
-      return setCarrinho((carrinhoAnterior) => [
-        ...carrinhoAnterior,
-        novoProduto,
-      ]);
-    }
-
-    const carrinhoAtualizado = mudarQuantidade(novoProduto.id, 1);
-
-    setCarrinho([...carrinhoAtualizado]);
-  }
 
   return {
     carrinho,
@@ -97,5 +80,7 @@ export const useCarrinhoContext = () => {
     adicionarProduto,
     removerProduto,
     removerProdutoCarrinho,
+    valorTotal,
+    quantidade,
   };
 };
